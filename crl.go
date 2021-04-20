@@ -20,5 +20,5 @@ func (svr *Server) generateCRL(c *gin.Context) {
 		return
 	}
 
-	c.String(200, "utf8", pem)
+	c.Data(200, "utf8", pem)
 }

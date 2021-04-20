@@ -70,7 +70,7 @@ func (svr *Server) createServer(c *gin.Context) {
 	ci.Subject.CommonName = cn
 
 	// TODO: add private key password
-	crt, err := ca.NewClientCert(ci, csreq.Password)
+	crt, err := ca.NewServerCert(ci, csreq.Password)
 	if err != nil {
 		jsonError(c, 500, "can't create user cert: %s", err)
 		return
