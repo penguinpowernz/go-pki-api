@@ -13,6 +13,22 @@ Then you have the binary in the `bin` directory.
 
 ## Usage
 
+First you will need to initialize:
+
+    $    export PKI_PASSWORD=1234 # extra spaces at the start so password isn't saved to your history
+    $ pkiapi init mycoolpkidb
+    2021/04/20 23:50:38 Using default validity: 5 years (you can change this with -V)
+    New CA cert:
+        Data:
+            Version: 3 (0x2)
+            Serial Number: 521521186612901458086099230340302016940 (0x1885953b5d071af366a567ae14b7c91ac)
+    ...snip...
+    2021/04/20 23:50:38 created new PKI database at ./mycoolpkidb.db
+
+Next you can run the API like so:
+
+    $ pkiapi run -d mycoolpkidb.db
+
 The following routes are available:
 
 ### GET /servers
@@ -114,3 +130,8 @@ Returns 204 when successful.
 
 Generate a CRL with the validity of it given in days. Outputs the CRL
 in plain text for easy curling to a location.
+
+# TODO
+
+- [ ] debian package with runnable service
+- [ ] intermediate certs
