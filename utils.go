@@ -17,8 +17,14 @@ func jsonError(c *gin.Context, status int, fmtm string, args ...interface{}) {
 
 type IPList []net.IP
 
-func newIPList() *IPList {
+func NewIPList() *IPList {
 	return &IPList{}
+}
+
+func ParseIPList(s string) *IPList {
+	l := &IPList{}
+	l.Set(s)
+	return l
 }
 
 func (ipl *IPList) Set(s string) error {
@@ -53,7 +59,7 @@ type jsonableCert struct {
 func (cert jsonableCert) MarshalJSON() ([]byte, error) {
 	return json.Marshal(map[string]interface{}{
 		"common_name":      cert.Subject.CommonName,
-		"serial":           fmt.Sprintf("%#x", cert.SerialNumber),
+		"fingerprint":      fmt.Sprintf("%#x", cert.SerialNumber),
 		"expired":          time.Now().After(cert.NotAfter),
 		"expires_at":       cert.NotAfter.Unix(),
 		"expires_at_human": cert.NotAfter.String(),
